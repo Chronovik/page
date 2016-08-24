@@ -24,7 +24,7 @@
       var rawString = /access_token=\w+&/.exec(str);
       if (rawString) {
         rawString = rawString[0]; 
-        strLen = rawString.length - 14;
+        var strLen = rawString.length - 14;
         rawString = rawString.substr(13, strLen); 
         return rawString;
       }
