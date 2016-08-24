@@ -18,6 +18,7 @@
     clientId: '5602894',
     userId: '',
     accessToken:  '',
+    name: '',
     redirectUrl: 'https://chronovik.github.io/page/',
     getAuthUrl: function() {
       return  this.baseOauthUrl + '?client_id=' + this.clientId  + '&display=popup&redirect_uri=' +  this.redirectUrl + '&response_type=token&v=5.53'     
@@ -64,18 +65,29 @@
     }
   });
 
+var NameIs = React.createClass({
+    render: function() {
+      return (
+        <div className="nameis">
+          {this.props.name}
+        </div>
+      );
+    }
+  });
+
   var App = React.createClass({
     componentDidMount: function() {
       app.accessToken = app.getToken(location.hash);  
       if (app.accessToken) {
         app.userId = app.getUsetId(location.hash);
-        app.getName();
+        app.name = app.getName();
       }    
     }, 
     render: function() {
       return (
         <div className="app">
           <Authorize url={app.getAuthUrl()}/>
+          <NameIs name={app.name}/>
         </div>
       );
     }
