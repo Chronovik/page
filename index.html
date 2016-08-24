@@ -15,6 +15,7 @@
     baseOauthUrl: 'https://oauth.vk.com/authorize',
     vkApiUrl: 'https://api.vk.com/method/',
     clientId: '5602894',
+    userId: '',
     accessToken:  '',
     redirectUrl: 'https://chronovik.github.io/page/',
     getAuthUrl: function() {
@@ -40,10 +41,14 @@
       return false;
     },
     getName: function() {
-      fetch(this.vkApiUrl + '/method/users.get?user_ids=210700286&access_token=' + this.accessToken )
-
-      // https://api.vk.com/method/users.get?user_ids=210700286&fields=bdate&v=5.53
-      
+      fetch(this.vkApiUrl + '/method/users.get?user_ids=' + app.userId + '&access_token=' + this.accessToken)
+      .then(function(response) {
+        return response.json()
+      }).then(function(json) {
+        console.log('parsed json', json)
+      }).catch(function(ex) {
+        console.log('parsing failed', ex)
+      });   
     },
   };
 
@@ -59,10 +64,11 @@
 
   var App = React.createClass({
     componentDidMount: function() {
-       app.accessToken = app.getToken(location.hash);  
-       if (app.accessToken) {
-        alert(app.getUsetId(location.hash));
-       }    
+      app.accessToken = app.getToken(location.hash);  
+      if (app.accessToken) {
+        app.userId = app.getUsetId(location.hash);
+        app.getName();
+      }    
     }, 
     render: function() {
       return (
