@@ -20,6 +20,9 @@
     getAuthUrl: function() {
       return  this.baseOauthUrl + '?client_id=' + this.clientId  + '&display=popup&redirect_uri=' +  this.redirectUrl + '&response_type=token&v=5.53'     
     },
+    getToken: function(str) {
+      return /access_token=\w+&/.exec(location.hash)
+    }
   };
 
   var Authorize = React.createClass({
@@ -34,7 +37,7 @@
 
   var App = React.createClass({
     componentDidMount: function() {
-       console.log(location.search);
+       console.log(app.getToken(location.hash));
     },
     render: function() {
       return (
