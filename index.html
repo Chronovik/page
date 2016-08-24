@@ -51,18 +51,14 @@ var NameIs = React.createClass({
     }, 
     setupData: function() {
        var hash = location.hash;
-       console.log(this.getToken(hash),this.getUsetId(hash));
-       var token = this.getToken(hash);
-       var userId = this.getUsetId(hash);
-       console.log(userId,token);
+       app.token = this.getToken(hash);
+       app.userId = this.getUsetId(hash);
 
        this.setState({ 
           accessToken: 'token',
           userId: 'userId',
           logged: true,
-       });
-
-       
+       });       
 
        this.setName();
     },
@@ -88,8 +84,8 @@ var NameIs = React.createClass({
     setName: function() {      
       var _this = this;
       console.log(_this.state);
-      console.log(app.vkApiUrl + '/method/users.get?user_ids=' + _this.state.userId + '&access_token=' + _this.state.accessToken);
-      fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + _this.state.userId + '&access_token=' + _this.state.accessToken)
+      console.log(app.vkApiUrl + '/method/users.get?user_ids=' + app.userId + '&access_token=' + app.accessToken);
+      fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + app.userId + '&access_token=' + app.accessToken)
       .then(function(response) {
         return response.json()
       }).then(function(json) {
