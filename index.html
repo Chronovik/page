@@ -43,13 +43,13 @@
       return false;
     },
     getName: function() {
-        console.log(Promise)
+        console.log(new Promise(res,rej) {});
       fetchJsonp(this.vkApiUrl + '/method/users.get?user_ids=' + app.userId + '&access_token=' + this.accessToken)
       .then(function(response) {
         return response.json()
       }).then(function(json) {
         var data = json.response[0];
-        app.name = data.first_name + ' ' + data.last_name;
+        data.first_name + ' ' + data.last_name;
       }).catch(function(ex) {
         console.log('parsing failed', ex)
       })
