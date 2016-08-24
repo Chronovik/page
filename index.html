@@ -6,6 +6,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script> 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
   <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+  <script src="https:/vk.com/js/api/openapi.js" ></script>
 </head>
 <body>
   <div id="root"></div>
@@ -25,23 +26,28 @@
   };
 
   var Authorize = React.createClass({
+   login: function() {
+      VK.Auth.login(function(session){
+        console.dir(session);
+      });
+    },
     render: function() {
       return (
         <div className="authorize">
-          <a href={this.props.url}>vk.com авторизация</a>  
+          <button onClick={this.login}>vk.com авторизация</button>  
         </div>
       );
     }
   });
 
   var App = React.createClass({
+   
     componentDidMount: function() {
-      console.log(location.search);
     },
     render: function() {
       return (
         <div className="app">
-          <Authorize url={app.getAuthUrl()}/>
+          <Authorize />
         </div>
       );
     }
@@ -51,6 +57,10 @@
     <App/>,
     document.getElementById('root')
   );
+
+  VK.init({
+    apiId: app.clientId,
+  });
 </script>
 </body>
 </html>
