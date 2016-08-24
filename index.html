@@ -79,7 +79,7 @@ var NameIs = React.createClass({
     }, 
     setName: function() {      
       var _this = this;
-      fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + this.userId + '&access_token=' + this.accessToken)
+      fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + this.state.userId + '&access_token=' + this.state.accessToken)
       .then(function(response) {
         return response.json()
       }).then(function(json) {
