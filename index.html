@@ -52,6 +52,7 @@ var NameIs = React.createClass({
     }, 
     setupData: function() {
        var hash = location.hash;
+       console.log(this.getToken(hash),this.getUsetId(hash));
        this.setState({ 
           accessToken: this.getToken(hash),
           userId: this.getUsetId(hash),
