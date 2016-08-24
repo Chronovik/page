@@ -43,12 +43,13 @@
       return false;
     },
     getName: function() {
+        console.log(Promise)
       fetchJsonp(this.vkApiUrl + '/method/users.get?user_ids=' + app.userId + '&access_token=' + this.accessToken)
       .then(function(response) {
         return response.json()
       }).then(function(json) {
         var data = json.response[0];
-        this.name = data.first_name + ' ' + data.last_name;
+        app.name = data.first_name + ' ' + data.last_name;
       }).catch(function(ex) {
         console.log('parsing failed', ex)
       })
@@ -84,16 +85,16 @@ var NameIs = React.createClass({
         app.getName();
       }    
     }, 
+    getInitialState: function() {
+      return {
+        name: '',
+      };
+    },
     render: function() {
-    var name;
-
-    setTimeout(function(){
-      name = "koko";
-    },1000)
       return (
         <div className="app">
           <Authorize url={app.getAuthUrl()}/>
-          <NameIs name={name}/>
+          <NameIs name={this.state.name}/>
         </div>
       );
     }
