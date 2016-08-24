@@ -9,6 +9,48 @@
 </head>
 <body>
   <div id="root"></div>
-  <script type="text/babel" src="https://raw.githubusercontent.com/Chronovik/page/gh-pages/scripts.js"></script>
+  <script type="text/babel">
+  var app = {
+    baseOauthUrl: 'https://oauth.vk.com/authorize',
+    baseVkApiUrl: 'https://oauth.vk.com/access_token',
+    clientId: '5602894',
+    clientSecret: 'z29VtcCZq7Fpmo5UaOm3',
+    accessToken:  '',
+    redirectUrl: 'https://chronovik.github.io/page',
+    getAuthUrl: function() {
+      return  this.baseOauthUrl + '?client_id=' + this.clientId  +
+      '&display=popup&redirect_url=' +  this.redirectUrl +
+      '&response_type=code&v=5.53'     
+    },
+  };
+
+  var Authorize = React.createClass({
+    render: function() {
+      return (
+        <div className="authorize">
+          <a href={this.props.url}>vk.com авторизация</a>  
+        </div>
+      );
+    }
+  });
+
+  var App = React.createClass({
+    componentDidMount: function() {
+      alert(location.search);
+    },
+    render: function() {
+      return (
+        <div className="app">
+          <Authorize url={app.getAuthUrl()}/>
+        </div>
+      );
+    }
+  });
+
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
+</script>
 </body>
 </html>
