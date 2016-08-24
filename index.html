@@ -16,32 +16,11 @@
     baseOauthUrl: 'https://oauth.vk.com/authorize',
     vkApiUrl: 'https://api.vk.com',
     clientId: '5602894',
-    userId: '',
-    accessToken:  '',
-    name: '',
     redirectUrl: 'https://chronovik.github.io/page/',
     getAuthUrl: function() {
       return  this.baseOauthUrl + '?client_id=' + this.clientId  + '&display=popup&redirect_uri=' +  this.redirectUrl + '&response_type=token&v=5.53'     
     },
-    getToken: function(str) {
-      var rawString = /access_token=\w+&/.exec(str);
-      if (rawString) {
-        rawString = rawString[0]; 
-        var strLen = rawString.length - 14;
-        rawString = rawString.substr(13, strLen); 
-        return rawString;
-      }
-      return false;
-    },
-    getUsetId: function(str) {
-      var rawString = /user_id=\w+/.exec(str);
-      if (rawString) {
-        rawString = rawString[0]; 
-        rawString = rawString.substr(8);
-        return rawString;
-      }
-      return false;
-    },    
+    
   };
 
   var Authorize = React.createClass({
@@ -65,16 +44,39 @@ var NameIs = React.createClass({
   });
 
   var App = React.createClass({
-    componentDidMount: function() {
-      app.accessToken = app.getToken(location.hash);  
-      if (app.accessToken) {
-        app.userId = app.getUsetId(location.hash);
-        this.getName();
-      }    
+    componentDidMount: function() {  
+      location.hash && this.setupData();
+    }, 
+    setupData: function() {
+       var hash = location.hash;
+       this.setState({ 
+          accessToken: this.getToken(hash),
+          userId: this.getUsetId(hash),
+          logged: true,
+       });
+    },
+    getToken: function(str) {
+      var rawString = /access_token=\w+&/.exec(str);
+      if (rawString) {
+        rawString = rawString[0]; 
+        var strLen = rawString.length - 14;
+        rawString = rawString.substr(13, strLen); 
+        return rawString;
+      }
+      return false;
+    },
+    getUsetId: function(str) {
+      var rawString = /user_id=\w+/.exec(str);
+      if (rawString) {
+        rawString = rawString[0]; 
+        rawString = rawString.substr(8);
+        return rawString;
+      }
+      return false;
     }, 
     getName: function() {      
       var _this = this;
-      fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + app.userId + '&access_token=' + app.accessToken)
+      fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + this.userId + '&access_token=' + this.accessToken)
       .then(function(response) {
         return response.json()
       }).then(function(json) {
@@ -87,6 +89,9 @@ var NameIs = React.createClass({
     getInitialState: function() {
       return {
         name: '',
+        logged: false,
+        userId: '',
+        token: '',
       };
     },
     render: function() {
