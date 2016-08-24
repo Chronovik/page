@@ -80,6 +80,7 @@ var NameIs = React.createClass({
     }, 
     setName: function() {      
       var _this = this;
+      console.log(app.vkApiUrl + '/method/users.get?user_ids=' + this.state.userId + '&access_token=' + this.state.accessToken);
       fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + this.state.userId + '&access_token=' + this.state.accessToken)
       .then(function(response) {
         return response.json()
@@ -95,7 +96,7 @@ var NameIs = React.createClass({
         name: '',
         logged: false,
         userId: '',
-        token: '',
+        accessToken: '',
       };
     },
     render: function() {
