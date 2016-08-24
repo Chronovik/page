@@ -41,7 +41,7 @@
       return false;
     },
     getName: function() {
-      fetch(this.vkApiUrl + '/method/users.get?user_ids=' + app.userId + '&access_token=' + this.accessToken)
+      fetch(this.vkApiUrl + '/method/users.get?user_ids=' + app.userId + '&access_token=' + this.accessToken&&callback=?)
       .then(function(response) {
         return response.json()
       }).then(function(json) {
