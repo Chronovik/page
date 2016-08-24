@@ -29,7 +29,22 @@
         return rawString;
       }
       return false;
-    }
+    },
+    getUsetId: function(str) {
+      var rawString = /user_id=\w+/.exec(str);
+      if (rawString) {
+        rawString = rawString[0]; 
+        rawString = rawString.substr(8);
+        return rawString;
+      }
+      return false;
+    },
+    getName: function() {
+      fetch(this.vkApiUrl + '/method/users.get?user_ids=210700286&access_token=' + this.accessToken )
+
+      // https://api.vk.com/method/users.get?user_ids=210700286&fields=bdate&v=5.53
+      
+    },
   };
 
   var Authorize = React.createClass({
@@ -44,8 +59,11 @@
 
   var App = React.createClass({
     componentDidMount: function() {
-       console.log(app.getToken(location.hash));
-    },
+       app.accessToken = app.getToken(location.hash);  
+       if (app.accessToken) {
+        alert(app.getUsetId(location.hash));
+       }    
+    }, 
     render: function() {
       return (
         <div className="app">
