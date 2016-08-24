@@ -21,7 +21,14 @@
       return  this.baseOauthUrl + '?client_id=' + this.clientId  + '&display=popup&redirect_uri=' +  this.redirectUrl + '&response_type=token&v=5.53'     
     },
     getToken: function(str) {
-      return /access_token=\w+&/.exec(location.hash)[0]
+      var rawString = /access_token=\w+&/.exec(str);
+      if (rawString) {
+        rawString = rawString[0]; 
+        strLen = rawString.length - 14;
+        rawString = rawString.substr(13, strLen); 
+        return rawString;
+      }
+      return false;
     }
   };
 
