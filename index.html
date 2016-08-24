@@ -44,10 +44,20 @@ var NameIs = React.createClass({
   });
 
   var App = React.createClass({
+    getInitialState: function() {
+      return {
+        name: '',
+        logged: false,
+        userId: '',
+        accessToken: '',
+      };
+    },
     componentDidMount: function() {  
       if (location.hash) {
         this.setupData();
-        this.setName();
+        setTimeout(function(){
+          this.setName().bind(this);
+        },4000)
       }
     }, 
     setupData: function() {
@@ -94,15 +104,7 @@ var NameIs = React.createClass({
       }).catch(function(ex) {
         console.log('parsing failed', ex)
       })      
-    },
-    getInitialState: function() {
-      return {
-        name: '',
-        logged: false,
-        userId: '',
-        accessToken: '',
-      };
-    },
+    },  
     render: function() {
       return (
         <div className="app">
