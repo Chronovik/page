@@ -72,13 +72,14 @@ var NameIs = React.createClass({
         this.getName();
       }    
     }, 
-    getName: function() {        
+    getName: function() {      
+      var _this = this;
       fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + app.userId + '&access_token=' + app.accessToken)
       .then(function(response) {
         return response.json()
       }).then(function(json) {
         var data = json.response[0];
-        this.setState({name: data.first_name + ' ' + data.last_name});
+        _this.setState({name: data.first_name + ' ' + data.last_name});
       }).catch(function(ex) {
         console.log('parsing failed', ex)
       })      
