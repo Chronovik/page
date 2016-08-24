@@ -47,7 +47,8 @@
       .then(function(response) {
         return response.json()
       }).then(function(json) {
-        console.log('parsed json', json)
+        var data = json.response[0];
+        this.name = data.first_name + ' ' + data.last_name;
       }).catch(function(ex) {
         console.log('parsing failed', ex)
       })
@@ -80,14 +81,15 @@ var NameIs = React.createClass({
       app.accessToken = app.getToken(location.hash);  
       if (app.accessToken) {
         app.userId = app.getUsetId(location.hash);
-        app.name = app.getName();
+        app.getName();
       }    
     }, 
     render: function() {
+    var name = "koko";
       return (
         <div className="app">
           <Authorize url={app.getAuthUrl()}/>
-          <NameIs name={app.name}/>
+          <NameIs name={name}/>
         </div>
       );
     }
