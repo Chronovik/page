@@ -45,7 +45,10 @@ var NameIs = React.createClass({
 
   var App = React.createClass({
     componentDidMount: function() {  
-      location.hash && this.setupData();
+      if (location.hash) {
+        this.setupData();
+        this.setName();
+      }
     }, 
     setupData: function() {
        var hash = location.hash;
@@ -74,7 +77,7 @@ var NameIs = React.createClass({
       }
       return false;
     }, 
-    getName: function() {      
+    setName: function() {      
       var _this = this;
       fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + this.userId + '&access_token=' + this.accessToken)
       .then(function(response) {
