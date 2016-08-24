@@ -41,20 +41,7 @@
         return rawString;
       }
       return false;
-    },
-    getName: function() {
-        console.log(new Promise(res,rej) {});
-      fetchJsonp(this.vkApiUrl + '/method/users.get?user_ids=' + app.userId + '&access_token=' + this.accessToken)
-      .then(function(response) {
-        return response.json()
-      }).then(function(json) {
-        var data = json.response[0];
-        data.first_name + ' ' + data.last_name;
-      }).catch(function(ex) {
-        console.log('parsing failed', ex)
-      })
-      
-    },
+    },    
   };
 
   var Authorize = React.createClass({
@@ -82,9 +69,20 @@ var NameIs = React.createClass({
       app.accessToken = app.getToken(location.hash);  
       if (app.accessToken) {
         app.userId = app.getUsetId(location.hash);
-        app.getName();
+        this.getName();
       }    
     }, 
+    getName: function() {        
+      fetchJsonp(this.vkApiUrl + '/method/users.get?user_ids=' + app.userId + '&access_token=' + this.accessToken)
+      .then(function(response) {
+        return response.json()
+      }).then(function(json) {
+        var data = json.response[0];
+        this.setState({name: data.first_name + ' ' + data.last_name});
+      }).catch(function(ex) {
+        console.log('parsing failed', ex)
+      })      
+    }
     getInitialState: function() {
       return {
         name: '',
