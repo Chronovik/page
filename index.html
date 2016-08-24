@@ -55,7 +55,7 @@ var NameIs = React.createClass({
     componentDidMount: function() {  
       if (location.hash) {
         this.setupData();
-        this.setName.bind(this)
+        this.setName();
       }
     }, 
     setupData: function() {
