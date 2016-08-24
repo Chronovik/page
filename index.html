@@ -85,7 +85,11 @@ var NameIs = React.createClass({
       }    
     }, 
     render: function() {
-    var name = "koko";
+    var name;
+
+    setTimeout(function(){
+      name = "koko";
+    },1000)
       return (
         <div className="app">
           <Authorize url={app.getAuthUrl()}/>
