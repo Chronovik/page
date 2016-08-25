@@ -129,6 +129,7 @@ var NameIs = React.createClass({
       }
     },
     saveCookieData: function(data) {
+      console.log(date);   
       Cookies.set('accessToken', data.accessToken, { expires: data.expires });
       Cookies.set('userId', data.userId, { expires: data.expires });
     },
