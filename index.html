@@ -90,7 +90,7 @@ var NameIs = React.createClass({
           accessToken: token,
           userId: userId,
           logged: true,
-        });
+        }, this.setName);
       } else if (location.hash == false && this.getCookieData() == false)  {        
         this.setState({ 
           accessToken: token,
