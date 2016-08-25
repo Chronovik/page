@@ -56,7 +56,7 @@ var NameIs = React.createClass({
       return false;
     },
     getAuthUrl: function() {   
-      return  app.baseOauthUrl + '?client_id=' + app.clientId  + '&display=popup&redirect_uri=' +  app.redirectUrl + '&response_type=token&v=5.53&scope=friends'; 
+      return  app.baseOauthUrl + '?client_id=' + app.clientId  + '&display=popup&redirect_uri=' +  app.redirectUrl + '&response_type=token&v=5.53'; 
     }, 
     setupData: function() {
       var hash = location.hash;
@@ -88,14 +88,13 @@ var NameIs = React.createClass({
       }
       return false;
     }, 
-    setName: function() {      
-      var _this = this;
-      fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + _this.state.userId + '&access_token=' + _this.state.accessToken)
+    setName: function() {
+      fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + this.state.userId + '&access_token=' + this.state.accessToken)
       .then(function(response) {
         return response.json()
       }).then(function(json) {
         var data = json.response[0];
-        _this.setState({name: data.first_name + ' ' + data.last_name});
+        this.setState({name: data.first_name + ' ' + data.last_name});
       }).catch(function(ex) {
         console.log('parsing failed', ex)
       })      
