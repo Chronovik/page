@@ -44,7 +44,7 @@ var NameIs = React.createClass({
     componentDidMount: function() {  
       if (location.hash) {
         this.setupData();
-        console.log(this.getExpires(hash));
+        console.log(this.getExpires(location.hash));
       }
     }, 
     checkAccess: function() {
