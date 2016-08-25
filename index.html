@@ -59,15 +59,15 @@ var NameIs = React.createClass({
       return  app.baseOauthUrl + '?client_id=' + app.clientId  + '&display=popup&redirect_uri=' +  app.redirectUrl + '&response_type=token&v=5.53&scope=friends'; 
     }, 
     setupData: function() {
-       var hash = location.hash;
-       var token = this.getToken(hash);
-       var userId = this.getUsetId(hash);
+      var hash = location.hash;
+      var token = this.getToken(hash);
+      var userId = this.getUsetId(hash);
 
-       this.setState({ 
-          accessToken: token,
-          userId: userId,
-          logged: token ? true : false,
-       }, this.setName);       
+      this.setState({ 
+        accessToken: token,
+        userId: userId,
+        logged: token ? true : false,
+      }, token && userId && token this.setName);
     },
     getToken: function(str) {
       var rawString = /access_token=\w+&/.exec(str);
