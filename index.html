@@ -69,8 +69,7 @@
     render: function() {
       return (
         <div className="photo">
-          {this.props.photoUrl}
-          <img src={this.props.photoUrl} /> 
+          <img src={this.props.src} /> 
         </div>
       );
     }
@@ -225,14 +224,14 @@ var NameIs = React.createClass({
         logged: false,
         userId: '',
         accessToken: '',
-        photoUrl: 'http://cs626317.vk.me/v626317384/135ce/KtLdU94zlDE.jpg',
+        photoUrl: '',
       };
     },
     render: function() {
       if (this.state.logged) {
         return (
           <div className="app">
-            <Photo name={this.state.photoUrl}/>
+            <Photo src={this.state.photoUrl}/>
             <NameIs name={this.state.name}/>
           </div>
         );
