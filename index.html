@@ -67,6 +67,8 @@ var NameIs = React.createClass({
       var userId = this.getUsetId(hash);
       var expired = this.getExpires(hash);
 
+      console.log(expired);
+
       if (token && userId) {        
         this.setState({ 
           accessToken: token,
