@@ -62,14 +62,17 @@ var NameIs = React.createClass({
       return  app.baseOauthUrl + '?client_id=' + app.clientId  + '&display=popup&redirect_uri=' +  app.redirectUrl + '&response_type=token&v=5.53'; 
     }, 
     setupData: function() {
-      var hash = location.hash;
-      var token = this.getToken(hash);
-      var userId = this.getUsetId(hash);
-      var expired = this.getExpires(hash);
+      var token, 
+        userId, 
+        expired,
+        cookieData;
 
-      console.log(expired);
+      if (location.hash && this.getCookieData() == false) {
+        hash = location.hash;
+        token = this.getToken(hash);
+        userId = this.getUsetId(hash);
+        expired = this.getExpires(hash); 
 
-      if (token && userId) {        
         this.setState({ 
           accessToken: token,
           userId: userId,
@@ -80,9 +83,18 @@ var NameIs = React.createClass({
             expires: expired,
             accessToken: token,
             userId: userId,
-          });
         });
-      } else {
+      } else if (this.getCookieData()) {
+        cookieData = this.getCookieData();
+        token = cookieData.accessToken;
+        userId = cookieData.userId;
+
+        this.setState({ 
+          accessToken: token,
+          userId: userId,
+          logged: true,
+        });
+      } else if (location.hash == false && this.getCookieData() == false)  {        
         this.setState({ 
           accessToken: token,
           userId: userId,
