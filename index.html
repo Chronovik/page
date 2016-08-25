@@ -43,8 +43,9 @@ var NameIs = React.createClass({
   var App = React.createClass({
     componentDidMount: function() {  
       if (location.hash) {
-        this.setupData();
-        console.log(this.getExpires(location.hash));
+        this.setupData();      
+      } else if (this.getCookieData()) {
+        console.log(this.getCookieData);
       }
     }, 
     checkAccess: function() {
@@ -64,12 +65,28 @@ var NameIs = React.createClass({
       var hash = location.hash;
       var token = this.getToken(hash);
       var userId = this.getUsetId(hash);
+      var expired = this.getExpires(hash);
 
-      this.setState({ 
-        accessToken: token,
-        userId: userId,
-        logged: token ? true : false,
-      }, token && userId && this.setName);
+      if (token && userId) {        
+        this.setState({ 
+          accessToken: token,
+          userId: userId,
+          logged: true ,
+        }, function() {
+          this.setName();
+          this.saveData({ 
+            expires: expired,
+            accessToken: token,
+            userId: userId,
+          });
+        });
+      } else {
+        this.setState({ 
+          accessToken: token,
+          userId: userId,
+          logged: false,
+        });
+      }
     },
     getToken: function(str) {
       var rawString = /access_token=\w+&/.exec(str);
@@ -97,6 +114,23 @@ var NameIs = React.createClass({
         rawString = rawString.substr(11);
         return rawString;
       }
+    },
+    getCookieData: function() {
+      var token = Cookies.get('accessToken');
+      var userId = Cookies.get('userId');
+      
+      if (token && userId) {
+        return {
+          accessToken: Cookies.get('accessToken'),
+          userId: Cookies.get('userId'),
+        };      
+      } else {
+        return false;
+      }
+    },
+    saveCookieData: function(data) {
+      Cookies.set('accessToken', data.accessToken, { expires: data.expires });
+      Cookies.set('userId', data.userId, { expires: data.expires });
     },
     setName: function() {      
       var _this = this;
