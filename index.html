@@ -12,7 +12,12 @@
   <style>
     html {
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      background: #F1A9A0;
+      background: #f1a9a0; /* Old browsers */
+      background: -moz-linear-gradient(-45deg,  #f1a9a0 0%, #81cfe0 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(-45deg,  #f1a9a0 0%,#81cfe0 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(135deg,  #f1a9a0 0%,#81cfe0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1a9a0', endColorstr='#81cfe0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
       color: #E4F1FE;
       font-size: 18px;
     }
@@ -54,6 +59,17 @@
     clientId: '5602894',
     redirectUrl: 'https://chronovik.github.io/page/',       
   };
+
+  
+  var Photo = React.createClass({
+    render: function() {
+      return (
+        <div className="photo">
+          <img src={this.props.photoUrl}> 
+        </div>
+      );
+    }
+  });
 
   var Authorize = React.createClass({
     render: function() {
@@ -182,12 +198,16 @@ var NameIs = React.createClass({
     },
     setName: function() {      
       var _this = this;
-      fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + _this.state.userId + '&access_token=' + _this.state.accessToken + '&photo_1&sex')
+      fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + _this.state.userId + '&access_token=' + _this.state.accessToken + '&fields=photo_big')
       .then(function(response) {
         return response.json()
       }).then(function(json) {
         var data = json.response[0];
-        _this.setState({name: data.first_name + ' ' + data.last_name});
+        console.log(data);
+        _this.setState({
+          name: data.first_name + ' ' + data.last_name,
+          photo: null,
+        });
       }).catch(function(ex) {
         console.log('parsing failed', ex)
       })      
@@ -198,12 +218,14 @@ var NameIs = React.createClass({
         logged: false,
         userId: '',
         accessToken: '',
+        photoUrl: '',
       };
     },
     render: function() {
       if (this.state.logged) {
         return (
           <div className="app">
+            <Photo name={this.state.photoUrl}/>
             <NameIs name={this.state.name}/>
           </div>
         );
