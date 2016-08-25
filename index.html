@@ -14,11 +14,10 @@
     html {
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       background: #f1a9a0; /* Old browsers */
-      background: -moz-linear-gradient(-45deg,  #f1a9a0 0%, #81cfe0 100%); /* FF3.6-15 */
-      background: -webkit-linear-gradient(-45deg,  #f1a9a0 0%,#81cfe0 100%); /* Chrome10-25,Safari5.1-6 */
-      background: linear-gradient(135deg,  #f1a9a0 0%,#81cfe0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1a9a0', endColorstr='#81cfe0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
+      background: -moz-linear-gradient(-45deg,  #f1a9a0 0%, #674172 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(-45deg,  #f1a9a0 0%,#674172 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(135deg,  #f1a9a0 0%,#674172 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1a9a0', endColorstr='#674172',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
       color: #fff;
       font-size: 18px;
     }
@@ -58,6 +57,12 @@
       text-align: center;
       margin-bottom: 10px;
     }
+
+    .photo img {
+      border: solid 3px #fff;
+      border-radius: 3px;
+      box-shadow: 0 0 16px rgba(0,0,0,.5);
+    }
   </style> 
 </head>
 <body>
@@ -69,7 +74,6 @@
     clientId: '5602894',
     redirectUrl: 'https://chronovik.github.io/page/',       
   };
-
   
   var Photo = React.createClass({
     render: function() {
