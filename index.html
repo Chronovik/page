@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>react.js OAuth vk.com example</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.js"></script> 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
   <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.0.1/fetch-jsonp.js"></script>
-  <script src="https://fastcdn.org/Cookies.js/1.2.2/cookies.min.js"></script>
-  
+  <script src="https://fastcdn.org/Cookies.js/1.2.2/cookies.min.js"></script>  
 </head>
 <body>
   <div id="root"></div>
@@ -42,7 +41,7 @@ var NameIs = React.createClass({
 
   var App = React.createClass({
     componentDidMount: function() {  
-        this.setupData();
+      this.setupData();
     }, 
     checkAccess: function() {
       var rawString = /access_token=\w+&/.exec(str);
