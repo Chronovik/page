@@ -7,6 +7,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.js"></script>
   <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.0.1/fetch-jsonp.js"></script>
+  <script src="https://fastcdn.org/Cookies.js/1.2.2/cookies.min.js"></script>
   
 </head>
 <body>
@@ -43,6 +44,7 @@ var NameIs = React.createClass({
     componentDidMount: function() {  
       if (location.hash) {
         this.setupData();
+        console.log(this.getExpires(hash));
       }
     }, 
     checkAccess: function() {
@@ -88,6 +90,14 @@ var NameIs = React.createClass({
       }
       return false;
     }, 
+    getExpires: function(str) {
+      var rawString = /expires_in=\w+/.exec(location.hash);
+      if (rawString) {
+        rawString = rawString[0]; 
+        rawString = rawString.substr(11);
+        return rawString;
+      }
+    },
     setName: function() {      
       var _this = this;
       fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + _this.state.userId + '&access_token=' + _this.state.accessToken)
