@@ -45,9 +45,8 @@ var NameIs = React.createClass({
         this.setupData();
       }
     }, 
-    getAuthUrl: function() {
-      // return  app.baseOauthUrl + '?client_id=' + app.clientId  + '&display=popup&redirect_uri=' +  app.redirectUrl + '&response_type=token&v=5.53'     
-      return  app.baseOauthUrl + '?client_id=' + '&display=popup&redirect_uri=' +  app.redirectUrl + '&response_type=token&v=5.53'     
+    getAuthUrl: function() {   
+      return  app.baseOauthUrl + '?client_id=' + app.clientId  + '&display=popup&redirect_uri=' +  app.redirectUrl + '&response_type=token&v=5.53&scope=friends'; 
     }, 
     setupData: function() {
        var hash = location.hash;
