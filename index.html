@@ -42,11 +42,7 @@ var NameIs = React.createClass({
 
   var App = React.createClass({
     componentDidMount: function() {  
-      if (location.hash) {
-        this.setupData();      
-      } else if (this.getCookieData()) {
-        console.log(this.getCookieData());
-      }
+        this.setupData();
     }, 
     checkAccess: function() {
       var rawString = /access_token=\w+&/.exec(str);
