@@ -241,6 +241,12 @@ var NameIs = React.createClass({
       if (this.state.logged) {
         return (
           <div className="app">
+            <NameIs name={this.state.name}/>
+          </div>
+        );
+      } else if (this.state.logged && this.state.photoUrl) {
+        return (
+          <div className="app">
             <Photo src={this.state.photoUrl}/>
             <NameIs name={this.state.name}/>
           </div>
