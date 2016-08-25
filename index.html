@@ -88,13 +88,14 @@ var NameIs = React.createClass({
       }
       return false;
     }, 
-    setName: function() {
-      fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + this.state.userId + '&access_token=' + this.state.accessToken)
+    setName: function() {      
+      var _this = this;
+      fetchJsonp(app.vkApiUrl + '/method/users.get?user_ids=' + _this.state.userId + '&access_token=' + _this.state.accessToken)
       .then(function(response) {
         return response.json()
       }).then(function(json) {
         var data = json.response[0];
-        this.setState({name: data.first_name + ' ' + data.last_name});
+        _this.setState({name: data.first_name + ' ' + data.last_name});
       }).catch(function(ex) {
         console.log('parsing failed', ex)
       })      
