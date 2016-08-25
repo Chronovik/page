@@ -45,6 +45,16 @@ var NameIs = React.createClass({
         this.setupData();
       }
     }, 
+    checkAccess: function() {
+      var rawString = /access_token=\w+&/.exec(str);
+      if (rawString) {
+        rawString = rawString[0]; 
+        var strLen = rawString.length - 14;
+        rawString = rawString.substr(13, strLen); 
+        return rawString;
+      }
+      return false;
+    },
     getAuthUrl: function() {   
       return  app.baseOauthUrl + '?client_id=' + app.clientId  + '&display=popup&redirect_uri=' +  app.redirectUrl + '&response_type=token&v=5.53&scope=friends'; 
     }, 
@@ -56,7 +66,7 @@ var NameIs = React.createClass({
        this.setState({ 
           accessToken: token,
           userId: userId,
-          logged: true,
+          logged: token ? true : false,
        }, this.setName);       
     },
     getToken: function(str) {
