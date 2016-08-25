@@ -67,7 +67,7 @@ var NameIs = React.createClass({
         accessToken: token,
         userId: userId,
         logged: token ? true : false,
-      }, token && userId && token this.setName);
+      }, token && userId && this.setName);
     },
     getToken: function(str) {
       var rawString = /access_token=\w+&/.exec(str);
