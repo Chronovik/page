@@ -210,7 +210,7 @@ var NameIs = React.createClass({
         console.log(data);
         _this.setState({
           name: data.first_name + ' ' + data.last_name,
-          photo: null,
+          photoUrl: data.photo_big,
         });
       }).catch(function(ex) {
         console.log('parsing failed', ex)
