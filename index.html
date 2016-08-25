@@ -59,7 +59,7 @@ var NameIs = React.createClass({
     }, 
     setupData: function() {
       var token, 
-        usersId, 
+        userId, 
         expired,
         cookieData;
 
@@ -71,14 +71,15 @@ var NameIs = React.createClass({
 
         this.setState({ 
           accessToken: token,
-          userId: usersId,
+          userId: userId,
           logged: true ,
-        }, function() {
+        }, function() { 
           this.setName();
           this.saveCookieData({ 
             expires: expired,
             accessToken: token,
-            userId: usersId,
+            userId: userId,
+          });
         });
       } else if (this.getCookieData()) {
         cookieData = this.getCookieData();
@@ -87,7 +88,7 @@ var NameIs = React.createClass({
 
         this.setState({ 
           accessToken: token,
-          userId: usersId,
+          userId: userId,
           logged: true,
         });
       } else if (location.hash == false && this.getCookieData() == false)  {        
