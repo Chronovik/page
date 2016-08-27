@@ -142,7 +142,7 @@ var NameIs = React.createClass({
         }, function() { 
           this.setName();
           this.saveCookieData({ 
-            expires: -expired,
+            expires: parseInt(expired),
             accessToken: token,
             userId: userId,
           });
